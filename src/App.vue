@@ -6,16 +6,17 @@
                     <CazanaTest msg="Welcome to CazanaTest" :records="items"></CazanaTest>
                 </b-col>
             </b-row>
-            //task one
+            <br>
+            <!--task one-->
             <b-row>
-                <b-col cols="12">
-                    <TaskOne/>
+                <b-col cols="6">
+                    <TaskOne :on-click="calAvgMileage" :records="items" :result="avgMileage"></TaskOne>
                 </b-col>
             </b-row>
-            //task two
+            <!--task two-->
             <b-row>
-                <b-col cols="12">
-                    <TaskTwo/>
+                <b-col cols="6">
+                    <TaskTwo :on-click="estimateMileage" :records="items" :result="estMileage"></TaskTwo>
                 </b-col>
             </b-row>
         </b-container>
@@ -26,7 +27,9 @@
     import CazanaTest from "@/components/CazanaTest";
     import TaskOne from "@/components/TaskOne";
     import TaskTwo from "@/components/TaskTwo";
+    import moment from 'moment';
 
+    // given data
     const history = [
         {
             event: 'MOT',
@@ -83,7 +86,9 @@
 
         data() {
             return {
-                items: history
+                items: history,
+                avgMileage: null,
+                estMileage: null
             }
         },
 
@@ -91,7 +96,86 @@
             CazanaTest,
             TaskOne,
             TaskTwo
+        },
+        methods: {
+            // calculate average mileage
+            calAvgMileage(arrRecord) {
+
+                let arrMileage = [];
+
+                arrRecord.forEach(function (d) {
+                    if (d.data.passed === true && !isNaN(d.data.mileage) && d.data.mileage !== undefined){
+                        arrMileage.push(d.data.mileage);
+                    }
+                });
+
+                let arrSubMileage = [];
+
+                const sortArray = arr => arr.sort((a, b) => b - a);
+
+                const sortedMileage = sortArray(arrMileage);
+
+                for (let i = 0; i < sortedMileage.length; i++) {
+                    if(!isNaN(sortedMileage[i+1])){
+                        arrSubMileage.push(sortedMileage[i] - sortedMileage[i + 1]);
+                    }
+                }
+
+                const arrAvg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+                let result = arrAvg(arrSubMileage);
+
+                console.log(result);
+
+                return this.avgMileage = result;
+            },
+            estimateMileage: function (arrRecord) {
+                let arrMileage = [];
+                let arrDate = [];
+
+
+                arrRecord.forEach(function (d) {
+                    if (d.data.passed === true && !isNaN(d.data.mileage) && d.data.mileage !== undefined) {
+                        arrMileage.push(d.data.mileage);
+                        let date = moment(d.date, 'YYYY-MM-DD').format('llll');
+                        arrDate.push(new Date(date));
+                    }
+                });
+
+                const sortArray = arr => arr.sort((a, b) => b - a);
+
+                const sortedMileage = sortArray(arrMileage);
+
+                const sortedDate = sortArray(arrDate);
+
+                const today = new Date();
+
+                const last_day = sortedDate[0];
+
+                const period_year = today.getFullYear() - last_day.getFullYear();
+
+                const period_month = today.getMonth() - last_day.getMonth();
+
+                let arrSubMileage = [];
+
+                for (let i = 0; i < sortedMileage.length; i++) {
+                    if (!isNaN(sortedMileage[i + 1])) {
+                        arrSubMileage.push(sortedMileage[i] - sortedMileage[i + 1]);
+                    }
+                }
+
+                const arrAvg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+                let avg_result = arrAvg(arrSubMileage);
+
+               if(period_year <= 0){
+                    return this.estMileage = sortedMileage[0]+(avg_result*(period_month/12));
+               }else{
+                   return this.estMileage = sortedMileage[0]+(avg_result*(period_year+(period_month/12)));
+               }
+            }
         }
+
     }
 </script>
 

@@ -11,7 +11,7 @@
 
             <tr v-for="record in records">
                 <td>{{record.event}}</td>
-                <td>{{record.date}}</td>
+                <td>{{record.date | formatDate}}</td>
                 <td>{{record.data.mileage}}</td>
                 <td v-if="record.data.passed === true" class="success">Pass</td>
                 <td v-if="record.data.passed === false" class="fail">Fail</td>
