@@ -20,6 +20,15 @@
                 </b-col>
             </b-row>
         </b-container>
+        <br>
+        <br>
+        <b-container>
+            <b-row>
+                <b-col>
+                    <h5>Zin Thaw Tun</h5>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -129,6 +138,7 @@
 
                 return this.avgMileage = result;
             },
+            // calculate estimation
             estimateMileage: function (arrRecord) {
                 let arrMileage = [];
                 let arrDate = [];
