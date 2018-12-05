@@ -1,17 +1,80 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CazanaTest msg="Welcome to CazanaTest" :records="items"></CazanaTest>
+    <TaskOne />
+    <TaskTwo />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CazanaTest from "@/components/CazanaTest";
+import TaskOne from "@/components/TaskOne";
+import TaskTwo from "@/components/TaskTwo";
+
+const history = [
+    {
+        event: 'MOT',
+        date: '2018-3-10T00:00:00.000Z',
+        data: {
+            mileage: 69383,
+            passed: true
+        }
+    },
+    {
+        event: 'MOT',
+        date: '2017-3-10T00:00:00.000Z',
+        data: {
+            mileage: 58385,
+            passed: true
+        }
+    },
+    {
+        event: 'MOT',
+        date: '2016-4-10T00:00:00.000Z',
+        data: {
+            mileage: 46275,
+            passed: true
+        }
+    },
+    {
+        event: 'MOT',
+        date: '2016-4-10T00:00:00.000Z',
+        data: {
+            mileage: 46275,
+            passed: false
+        }
+    },
+    {
+        event: 'MOT',
+        date: '2015-4-10T00:00:00.000Z',
+        data: {
+            mileage: 37375,
+            passed: true
+        }
+    },
+    {
+        event: 'MOT',
+        date: '2014-4-10T00:00:00.000Z',
+        data: {
+            mileage: 28646,
+            passed: true
+        }
+    }
+]
 
 export default {
   name: 'app',
+
+  data(){
+        return{
+            items: history
+        }
+    },
+
   components: {
-    HelloWorld
+      CazanaTest,
+      TaskOne,
+      TaskTwo
   }
 }
 </script>
