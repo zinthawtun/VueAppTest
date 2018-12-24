@@ -3,7 +3,7 @@
         <b-container>
             <b-row>
                 <b-col cols="12">
-                    <CazanaTest msg="Welcome to CazanaTest" :records="items"></CazanaTest>
+                    <CazanaTest msg="Welcome to VueAppTest" :records="items"></CazanaTest>
                 </b-col>
             </b-row>
             <br>
