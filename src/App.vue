@@ -3,7 +3,7 @@
         <b-container>
             <b-row>
                 <b-col cols="12">
-                    <CazanaTest msg="Welcome to CazanaTest" :records="items"></CazanaTest>
+                    <VueAppTest msg="Welcome to VueAppTest" :records="items"></VueAppTest>
                 </b-col>
             </b-row>
             <br>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import CazanaTest from "@/components/CazanaTest";
+    import VueAppTest from "@/components/VueAppTest";
     import TaskOne from "@/components/TaskOne";
     import TaskTwo from "@/components/TaskTwo";
     import moment from 'moment';
@@ -102,7 +102,7 @@
         },
 
         components: {
-            CazanaTest,
+            VueAppTest,
             TaskOne,
             TaskTwo
         },
@@ -136,7 +136,7 @@
 
                 console.log(result);
 
-                return this.avgMileage = result;
+                this.avgMileage = result;
             },
             // calculate estimation
             estimateMileage: function (arrRecord) {
@@ -179,9 +179,9 @@
                 let avg_result = arrAvg(arrSubMileage);
 
                if(period_year <= 0){
-                    return this.estMileage = sortedMileage[0]+(avg_result*(period_month/12));
+                    this.estMileage = sortedMileage[0]+(avg_result*(period_month/12));
                }else{
-                   return this.estMileage = sortedMileage[0]+(avg_result*(period_year+(period_month/12)));
+                    this.estMileage = sortedMileage[0]+(avg_result*(period_year+(period_month/12)));
                }
             }
         }
